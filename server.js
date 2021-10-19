@@ -8,6 +8,9 @@ const { main,
         upEmp, 
         addRole, 
         roleDep,
-        addDep} = require('./lib/questions')
+        addDep,
+        delDep,
+        delEmp,
+        delRole} = require('./lib/questions')
 
 inquirer.prompt(main)
