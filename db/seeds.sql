@@ -13,16 +13,16 @@ VALUES  ('Marketing analyst', 200000, 1),
         ('Analyst', 120000, 3),
         ('Program Manager', 20000, 3),
         ('Recruiting', 140000, 4),
-        ('Director', 210,000, 4),
+        ('Director', 210000, 4),
         ('Systems Engineer', 200000, 5),
         ('Help Desk', 120000, 5);
 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES  ('Patrick','Sutcliffe', 9, 2),
-        ('Daniel', 'Kim', 5, 2),
+VALUES  ('Patrick','Sutcliffe', 9, 1),
+        ('Daniel', 'Kim', 5, 1),
         ('Josh', 'Watkins', 1, 2),
-        ('Bradley', 'Kimbrell', 2, 4),
+        ('Bradley', 'Kimbrell', 2, 2),
         ('Caitlin', 'Wall', 4, 2),
         ('Morgan', 'Riley', 3, 2),
         ('Matt', 'Gomez', 6, 2),
