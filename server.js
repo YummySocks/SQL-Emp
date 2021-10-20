@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const { addEmploy,
         addDepart,
         addRoles,
+        upEmps,
         viewEmps,
         viewDeps,
         viewRols} = require('./db/connections')
@@ -31,6 +32,7 @@ const mainSwitch = (answers) => {
                         break;
                 case 'Update Employee Role':
                         console.log('up emp!');
+                        uppE();
                         break;
                 case 'View All Roles':
                         console.log('view role');
@@ -109,6 +111,15 @@ const addR = () => {
                addRoles(answers.roleName,answers.roleSal,answers.roleDep)
                console.log(`added role ${answers.roleName}`)
                mainF();
+        })
+}
+
+const uppE = () => {
+        inquirer
+        .prompt(upEmp)
+        .then((answers) => {
+                upEmps(answers.assignRole,answers.upRole);
+                mainF();
         })
 }
 

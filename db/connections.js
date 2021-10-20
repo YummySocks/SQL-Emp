@@ -45,6 +45,12 @@ const addRoles = (title, salary, depId) => {
     })
 }
 
+const upEmps = (rolU,empI) => {
+    db.query(`UPDATE employee
+    SET role_id = ${rolU}
+    WHERE id = ${empI}`)
+}
+
 const viewEmps = () => {
     db.query(`SELECT employee.first_name, employee.last_name, roles.title, roles.salary, employee.manager_id FROM employee JOIN roles ON employee.role_id = roles.id`, (err, res) => {
         console.log(`\n\n`)
@@ -73,6 +79,7 @@ module.exports = {
     addEmploy,
     addDepart,
     addRoles,
+    upEmps,
     viewEmps,
     viewDeps,
     viewRols
