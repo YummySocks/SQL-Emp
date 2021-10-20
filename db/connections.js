@@ -21,6 +21,30 @@ const addEmploy = (first,last,role,manage) => {
     })
 }
 
+const addDepart = (name) => {
+    const sql = `INSERT INTO department (name)
+    VALUES(?)`
+    const params = name
+    db.query(sql,params,(err, result) => {
+        if (err){
+            console.log(err)
+            return;
+        }
+    })
+}
+
+const addRoles = (title, salary, depId) => {
+    const sql =`INSERT INTO roles (title,salary,department_id)
+    VALUES(?,?,?)`
+    const params = [title,salary,depId]
+    db.query(sql,params,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
+}
+
 const viewEmps = () => {
     db.query(`SELECT employee.first_name, employee.last_name, roles.title, roles.salary, employee.manager_id FROM employee JOIN roles ON employee.role_id = roles.id`, (err, res) => {
         console.log(`\n\n`)
@@ -47,6 +71,8 @@ const viewRols = () => {
 
 module.exports = {
     addEmploy,
+    addDepart,
+    addRoles,
     viewEmps,
     viewDeps,
     viewRols

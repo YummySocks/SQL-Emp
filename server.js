@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const { addEmploy,
+        addDepart,
+        addRoles,
         viewEmps,
         viewDeps,
         viewRols} = require('./db/connections')
@@ -9,7 +11,6 @@ const { main,
         manageEmp,
         upEmp,
         addRole,
-        roleDep,
         addDep,
         delDep,
         delEmp,
@@ -37,6 +38,7 @@ const mainSwitch = (answers) => {
                         break;
                 case 'Add Role':
                         console.log('adding roles!');
+                        addR();
                         break;
                 case 'View All Departments':
                         console.log('show me department');
@@ -44,6 +46,7 @@ const mainSwitch = (answers) => {
                         break;
                 case 'Add Department':
                         console.log('department adding!');
+                        addDe();
                         break;
                 case 'Delete Department':
                         console.log('destroy depeart');
@@ -86,6 +89,26 @@ const manE = (first,last,role) => {
         })
         .then(() => {
                 mainF();
+        })
+}
+
+const addDe = () => {
+        inquirer
+        .prompt(addDep)
+        .then((answers) => {
+                addDepart(answers.depName)
+                console.log(`added department ${answers.depName}`)
+                mainF();
+        })
+}
+
+const addR = () => {
+        inquirer
+        .prompt(addRole)
+        .then((answers) => {
+               addRoles(answers.roleName,answers.roleSal,answers.roleDep)
+               console.log(`added role ${answers.roleName}`)
+               mainF();
         })
 }
 
