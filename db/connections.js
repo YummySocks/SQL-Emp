@@ -48,13 +48,23 @@ const addRoles = (title, salary, depId) => {
 const upEmps = (rolU,empI) => {
     db.query(`UPDATE employee
     SET role_id = ${rolU}
-    WHERE id = ${empI}`)
+    WHERE id = ${empI}`,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
 }
 
 const upMans = (manU,empI) => {
     db.query(`UPDATE employee
     SET manager_id = ${manU}
-    WHERE id = ${empI}`)
+    WHERE id = ${empI}`,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
 }
 
 const viewEmps = () => {
