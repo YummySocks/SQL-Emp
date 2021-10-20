@@ -51,8 +51,14 @@ const upEmps = (rolU,empI) => {
     WHERE id = ${empI}`)
 }
 
+const upMans = (manU,empI) => {
+    db.query(`UPDATE employee
+    SET manager_id = ${manU}
+    WHERE id = ${empI}`)
+}
+
 const viewEmps = () => {
-    db.query(`SELECT employee.first_name, employee.last_name, roles.title, roles.salary, employee.manager_id FROM employee JOIN roles ON employee.role_id = roles.id`, (err, res) => {
+    db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, employee.manager_id FROM employee JOIN roles ON employee.role_id = roles.id`, (err, res) => {
         console.log(`\n\n`)
         console.table(res)
         console.log(`\n\n\n\n\n\n\n\n\n`)
@@ -80,6 +86,7 @@ module.exports = {
     addDepart,
     addRoles,
     upEmps,
+    upMans,
     viewEmps,
     viewDeps,
     viewRols
