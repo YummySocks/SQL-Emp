@@ -29,4 +29,3 @@ VALUES  ('Patrick','Sutcliffe', 9, 1),
         ('Zac', 'Goad', 8, 4),
         ('Abraham','Hong', 10, 6),
         ('Courtney', 'Long', 7, 6);
-
