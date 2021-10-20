@@ -4,6 +4,7 @@ const { addEmploy,
         addRoles,
         upEmps,
         upMans,
+        upRols,
         viewEmps,
         viewDeps,
         viewRols} = require('./db/connections')
@@ -15,6 +16,7 @@ const { main,
         addRole,
         addDep,
         upMan,
+        upRol,
         delDep,
         delEmp,
         delRole} = require('./lib/questions')
@@ -39,6 +41,10 @@ const mainSwitch = (answers) => {
                 case 'Update Employee Manager':
                         console.log('updating employees!')
                         uppM();
+                        break;
+                case 'Update Role':
+                        console.log('update that role20')
+                        uppR();
                         break;
                 case 'View All Roles':
                         console.log('view role');
@@ -135,6 +141,15 @@ const uppM = () => {
         .then((answers) => {
                 upMans(answers.manId,answers.newMan)
                 mainF();
+        })
+}
+
+const uppR = () => {
+        inquirer
+        .prompt(upRol)
+        .then((answers) => {
+                upRols(answers.roleI,answers.depI);
+                mainF()
         })
 }
 
