@@ -2,6 +2,9 @@ const inquirer = require('inquirer');
 const { addEmploy,
         addDepart,
         addRoles,
+        delEmps,
+        delDeps,
+        delRols,
         upEmps,
         upMans,
         upRols,
@@ -55,22 +58,25 @@ const mainSwitch = (answers) => {
                         addR();
                         break;
                 case 'View All Departments':
-                        console.log('show me department');
-                        viewD();
-                        break;
+                        console.log('show me department')
+                        viewD()
+                        break
                 case 'Add Department':
-                        console.log('department adding!');
-                        addDe();
-                        break;
+                        console.log('department adding!')
+                        addDe()
+                        break
                 case 'Delete Department':
-                        console.log('destroy depeart');
-                        break;
+                        console.log('destroy depeart')
+                        delD()
+                        break
                 case 'Delete Role':
-                        console.log('destroy rolling');
-                        break;
+                        console.log('destroy rolling')
+                        delR()
+                        break
                 case 'Delete Employee':
-                        console.log('destroy that employee');
-                        break;
+                        console.log('destroy that employee')
+                        delE()
+                        break
                 default:
                         process.exit()
         }
@@ -102,7 +108,7 @@ const manE = (first,last,role) => {
                 addEmploy(first,last,role,answers.manEmp)
         })
         .then(() => {
-                mainF();
+                mainF()
         })
 }
 
@@ -112,7 +118,7 @@ const addDe = () => {
         .then((answers) => {
                 addDepart(answers.depName)
                 console.log(`added department ${answers.depName}`)
-                mainF();
+                mainF()
         })
 }
 
@@ -122,7 +128,7 @@ const addR = () => {
         .then((answers) => {
                addRoles(answers.roleName,answers.roleSal,answers.roleDep)
                console.log(`added role ${answers.roleName}`)
-               mainF();
+               mainF()
         })
 }
 
@@ -130,8 +136,35 @@ const uppE = () => {
         inquirer
         .prompt(upEmp)
         .then((answers) => {
-                upEmps(answers.assignRole,answers.upRole);
-                mainF();
+                upEmps(answers.assignRole,answers.upRole)
+                mainF()
+        })
+}
+
+const delE = () => {
+        inquirer
+        .prompt(delEmp)
+        .then((answers) => {
+                delEmps(answers.delEmp)
+                mainF()
+        })
+}
+
+const delR = () => {
+        inquirer
+        .prompt(delRole)
+        .then((answers) => {
+                delRols(answers.delRole)
+                mainF()
+        })
+}
+
+const delD = () => {
+        inquirer
+        .prompt(delDep)
+        .then((answers) => {
+                delDeps(answers.delDep)
+                mainF()
         })
 }
 
@@ -140,7 +173,7 @@ const uppM = () => {
         .prompt(upMan)
         .then((answers) => {
                 upMans(answers.manId,answers.newMan)
-                mainF();
+                mainF()
         })
 }
 
@@ -148,24 +181,24 @@ const uppR = () => {
         inquirer
         .prompt(upRol)
         .then((answers) => {
-                upRols(answers.roleI,answers.depI);
+                upRols(answers.roleI,answers.depI)
                 mainF()
         })
 }
 
 const viewE = () => {
-        viewEmps();
-        mainF();
+        viewEmps()
+        mainF()
 }
 
 const viewD = () => {
-        viewDeps();
-        mainF();
+        viewDeps()
+        mainF()
 }
 
 const viewR = () => {
-        viewRols();
-        mainF();
+        viewRols()
+        mainF()
 }
 
-mainF();
+mainF()

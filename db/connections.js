@@ -45,6 +45,36 @@ const addRoles = (title, salary, depId) => {
     })
 }
 
+const delEmps = (emI) => {
+    db.query(`DELETE FROM employee
+    WHERE id = ${emI}`,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
+}
+const delRols = (rolI) => {
+    db.query(`DELETE FROM roles
+    WHERE id = ${rolI}`,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
+}
+const delDeps = (depI) => {
+    db.query(`DELETE FROM department
+    WHERE id = ${depI}`,(err,result)=> {
+        if(err){
+            console.log(err)
+            return;
+        }
+    })
+}
+
+
+
 const upEmps = (rolU,empI) => {
     db.query(`UPDATE employee
     SET role_id = ${rolU}
@@ -79,7 +109,7 @@ const upRols = (rolU, depId) => {
 }
 
 const viewEmps = () => {
-    db.query(`SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, employee.manager_id FROM employee JOIN roles ON employee.role_id = roles.id`, (err, res) => {
+    db.query(`SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS employee, roles.title, department.name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id ORDER BY id`, (err, res) => {
         console.log(`\n\n`)
         console.table(res)
         console.log(`\n\n\n\n\n\n\n\n\n`)
@@ -87,7 +117,7 @@ const viewEmps = () => {
 }
 
 const viewDeps = () => {
-    db.query(`SELECT * FROM department`, (err,res) => {
+    db.query(`SELECT * FROM department `, (err,res) => {
         console.log(`\n\n`)
         console.table(res)
         console.log(`\n\n\n\n\n\n\n\n\n`)
@@ -95,7 +125,7 @@ const viewDeps = () => {
 }
 
 const viewRols = () => {
-    db.query(`SELECT * FROM roles`, (err,res) => {
+    db.query(`SELECT roles.id, roles.title, roles.salary, roles.department_id, department.name FROM roles LEFT JOIN department ON roles.department_id = department.id`, (err,res) => {
         console.log(`\n\n`)
         console.table(res)
         console.log(`\n\n\n\n\n\n\n\n\n`)
@@ -106,6 +136,9 @@ module.exports = {
     addEmploy,
     addDepart,
     addRoles,
+    delEmps,
+    delRols,
+    delDeps,
     upEmps,
     upMans,
     upRols,
