@@ -1,3 +1,5 @@
+// file for handling the mysql2 functionality
+// importing in the required methods to be called
 const mysql = require('mysql2');
 const db = mysql.createConnection(
     {
@@ -8,7 +10,7 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the movies_db database.`)
   );
-
+// adds the employee
 const addEmploy = (first,last,role,manage) => {
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
     VALUES (?,?,?,?)`;
@@ -20,7 +22,7 @@ const addEmploy = (first,last,role,manage) => {
         }
     })
 }
-
+// adds departments
 const addDepart = (name) => {
     const sql = `INSERT INTO department (name)
     VALUES(?)`
@@ -32,7 +34,7 @@ const addDepart = (name) => {
         }
     })
 }
-
+// adds roles
 const addRoles = (title, salary, depId) => {
     const sql =`INSERT INTO roles (title,salary,department_id)
     VALUES(?,?,?)`
@@ -44,7 +46,7 @@ const addRoles = (title, salary, depId) => {
         }
     })
 }
-
+// deletes employees
 const delEmps = (emI) => {
     db.query(`DELETE FROM employee
     WHERE id = ${emI}`,(err,result)=> {
@@ -54,6 +56,7 @@ const delEmps = (emI) => {
         }
     })
 }
+// deletes roles
 const delRols = (rolI) => {
     db.query(`DELETE FROM roles
     WHERE id = ${rolI}`,(err,result)=> {
@@ -63,6 +66,7 @@ const delRols = (rolI) => {
         }
     })
 }
+// deletes departments
 const delDeps = (depI) => {
     db.query(`DELETE FROM department
     WHERE id = ${depI}`,(err,result)=> {
@@ -73,8 +77,7 @@ const delDeps = (depI) => {
     })
 }
 
-
-
+// updates the employees role
 const upEmps = (rolU,empI) => {
     db.query(`UPDATE employee
     SET role_id = ${rolU}
@@ -85,7 +88,7 @@ const upEmps = (rolU,empI) => {
         }
     })
 }
-
+// updates the employees manager
 const upMans = (manU,empI) => {
     db.query(`UPDATE employee
     SET manager_id = ${manU}
@@ -96,7 +99,7 @@ const upMans = (manU,empI) => {
         }
     })
 }
-
+// updates the roles department
 const upRols = (rolU, depId) => {
     db.query(`UPDATE roles
     SET department_id = ${depId}
@@ -107,7 +110,7 @@ const upRols = (rolU, depId) => {
         }
     })
 }
-
+// shows all employees
 const viewEmps = () => {
     db.query(`SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS employee, roles.title, department.name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id ORDER BY id`, (err, res) => {
         console.log(`\n\n`)
@@ -115,7 +118,7 @@ const viewEmps = () => {
         console.log(`\n\n\n\n\n\n\n\n\n`)
     })
 }
-
+// shows departments
 const viewDeps = () => {
     db.query(`SELECT * FROM department `, (err,res) => {
         console.log(`\n\n`)
@@ -123,7 +126,7 @@ const viewDeps = () => {
         console.log(`\n\n\n\n\n\n\n\n\n`)
     })
 }
-
+// shows roles
 const viewRols = () => {
     db.query(`SELECT roles.id, roles.title, roles.salary, roles.department_id, department.name FROM roles LEFT JOIN department ON roles.department_id = department.id`, (err,res) => {
         console.log(`\n\n`)

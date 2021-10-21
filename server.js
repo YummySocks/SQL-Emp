@@ -1,3 +1,4 @@
+// importing in all the required functions from other js files
 const inquirer = require('inquirer');
 const { addEmploy,
         addDepart,
@@ -23,115 +24,101 @@ const { main,
         delDep,
         delEmp,
         delRole} = require('./lib/questions')
+// main function to handle the top of the tree in terms of questions 
 const mainF = () => {
 inquirer.prompt(main)
 .then((answers) => mainSwitch(answers))
 }
+// secondary main function to handle the cases for each possible answer and to run the appropriate function
 const mainSwitch = (answers) => {
         switch(answers.main) {
                 case 'View All Employees':
-                        console.log('View Employee function');
                         viewE();
                         break;
                 case 'Add Employee':
-                        console.log('adding employee');
                         addE();
                         break;
                 case 'Update Employee Role':
-                        console.log('up emp!');
                         uppE();
                         break;
                 case 'Update Employee Manager':
-                        console.log('updating employees!')
                         uppM();
                         break;
                 case 'Update Role':
-                        console.log('update that role20')
                         uppR();
                         break;
                 case 'View All Roles':
-                        console.log('view role');
                         viewR();
                         break;
                 case 'Add Role':
-                        console.log('adding roles!');
                         addR();
                         break;
                 case 'View All Departments':
-                        console.log('show me department')
                         viewD()
                         break
                 case 'Add Department':
-                        console.log('department adding!')
                         addDe()
                         break
                 case 'Delete Department':
-                        console.log('destroy depeart')
                         delD()
                         break
                 case 'Delete Role':
-                        console.log('destroy rolling')
                         delR()
                         break
                 case 'Delete Employee':
-                        console.log('destroy that employee')
                         delE()
                         break
                 default:
                         process.exit()
         }
 }
-
+// function to start the adding of employees
 const addE = () => {
         inquirer
         .prompt(addEmp)
         .then((answers)=> {
-                console.log(answers)
                 emRole(answers.firstE, answers.lastE)
         })
 }
-
+// handles the role id
 const emRole = (first,last) => {
         inquirer
         .prompt(roleEmp)
         .then((answers) => {
-                console.log(answers)
                 manE(first,last,answers.roleE)
         })
 }
-
+// and handles the manager id
 const manE = (first,last,role) => {
         inquirer
         .prompt(manageEmp)
         .then((answers) => {
-                console.log(answers)
+                // passes along to the build function 
                 addEmploy(first,last,role,answers.manEmp)
         })
         .then(() => {
                 mainF()
         })
 }
-
+// function for adding departments
 const addDe = () => {
         inquirer
         .prompt(addDep)
         .then((answers) => {
                 addDepart(answers.depName)
-                console.log(`added department ${answers.depName}`)
                 mainF()
         })
 }
-
+// function for adding roles
 const addR = () => {
         inquirer
         .prompt(addRole)
         .then((answers) => {
                addRoles(answers.roleName,answers.roleSal,answers.roleDep)
-               console.log(`added role ${answers.roleName}`)
                mainF()
         })
 }
-
+// function for updating employee role
 const uppE = () => {
         inquirer
         .prompt(upEmp)
@@ -140,7 +127,7 @@ const uppE = () => {
                 mainF()
         })
 }
-
+// function for deleting employees
 const delE = () => {
         inquirer
         .prompt(delEmp)
@@ -149,7 +136,7 @@ const delE = () => {
                 mainF()
         })
 }
-
+// function for deleting roles
 const delR = () => {
         inquirer
         .prompt(delRole)
@@ -158,7 +145,7 @@ const delR = () => {
                 mainF()
         })
 }
-
+// function for deleting departments
 const delD = () => {
         inquirer
         .prompt(delDep)
@@ -167,7 +154,7 @@ const delD = () => {
                 mainF()
         })
 }
-
+// function for updating employee's manager
 const uppM = () => {
         inquirer
         .prompt(upMan)
@@ -176,7 +163,7 @@ const uppM = () => {
                 mainF()
         })
 }
-
+// function for updating roles department
 const uppR = () => {
         inquirer
         .prompt(upRol)
@@ -185,20 +172,20 @@ const uppR = () => {
                 mainF()
         })
 }
-
+// shows employees
 const viewE = () => {
         viewEmps()
         mainF()
 }
-
+// shows departments
 const viewD = () => {
         viewDeps()
         mainF()
 }
-
+// shows roles
 const viewR = () => {
         viewRols()
         mainF()
 }
-
+// runs on startup
 mainF()
